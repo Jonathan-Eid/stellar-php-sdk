@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- The HTTP clients the SDK creates by default (Horizon, Soroban RPC, SEP services, federation, stellar.toml,
+  friendbot) send `Accept-Encoding: gzip` and decode compressed responses. Horizon list pages are several
+  times smaller on the wire. Clients passed in through `setHttpClient` or a constructor parameter are used as is.
+
 ## [1.16.0] - 2026-10-14
 
 Migration guide: [docs/migration/1.16.0.md](docs/migration/1.16.0.md)

@@ -12,6 +12,7 @@ use GuzzleHttp\RequestOptions;
 use InvalidArgumentException;
 use Soneso\StellarSDK\Crypto\StrKey;
 use Soneso\StellarSDK\Requests\RequestBuilder;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 
 /**
@@ -77,7 +78,7 @@ class RecoveryService
         if ($httpClient !== null) {
             $this->httpClient = $httpClient;
         } else {
-            $this->httpClient = new Client();
+            $this->httpClient = HttpClientFactory::create();
         }
     }
 

@@ -15,6 +15,7 @@ use Psr\Http\Message\ResponseInterface;
 use Soneso\StellarSDK\Requests\RequestBuilder;
 use Soneso\StellarSDK\SEP\Toml\StellarToml;
 use Soneso\StellarSDK\SEP\Shared\SepRequestAmount;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 
 /**
@@ -62,7 +63,7 @@ class TransferServerService
             $this->serviceAddress = substr($this->serviceAddress, 0, -1);
         }
         if ($httpClient === null) {
-            $this->httpClient = new Client();
+            $this->httpClient = HttpClientFactory::create();
         } else {
             $this->httpClient = $httpClient;
         }
@@ -551,6 +552,6 @@ class TransferServerService
      * @return void
      */
     public function setMockHandlerStack(HandlerStack $handlerStack) : void {
-        $this->httpClient = new Client(['handler' => $handlerStack]);
+        $this->httpClient = HttpClientFactory::create(['handler' => $handlerStack]);
     }
 }

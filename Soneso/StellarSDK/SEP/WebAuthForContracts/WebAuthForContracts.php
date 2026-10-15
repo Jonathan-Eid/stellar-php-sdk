@@ -15,6 +15,7 @@ use GuzzleHttp\RequestOptions;
 use InvalidArgumentException;
 use RuntimeException;
 use Soneso\StellarSDK\Crypto\KeyPair;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 use Soneso\StellarSDK\Crypto\StrKey;
 use Soneso\StellarSDK\Exceptions\HorizonRequestException;
@@ -168,7 +169,7 @@ class WebAuthForContracts
         $this->network = $network;
 
         if ($httpClient === null) {
-            $this->httpClient = new Client();
+            $this->httpClient = HttpClientFactory::create();
         } else {
             $this->httpClient = $httpClient;
         }
@@ -969,7 +970,7 @@ class WebAuthForContracts
     public function setMockHandler(MockHandler $handler): void
     {
         $handlerStack = HandlerStack::create($handler);
-        $this->httpClient = new Client(['handler' => $handlerStack]);
+        $this->httpClient = HttpClientFactory::create(['handler' => $handlerStack]);
     }
 
     /**

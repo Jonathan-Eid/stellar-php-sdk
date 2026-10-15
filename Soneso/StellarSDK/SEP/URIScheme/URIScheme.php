@@ -21,6 +21,7 @@ use Soneso\StellarSDK\Network;
 use Soneso\StellarSDK\Requests\RequestBuilder;
 use Soneso\StellarSDK\SEP\Toml\StellarToml;
 use Soneso\StellarSDK\StellarSDK;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 use Soneso\StellarSDK\Xdr\XdrTransactionEnvelope;
 use InvalidArgumentException;
@@ -111,7 +112,7 @@ class URIScheme
      */
     public function __construct()
     {
-        $this->httpClient = new Client();
+        $this->httpClient = HttpClientFactory::create();
     }
 
     /**
@@ -558,6 +559,6 @@ class URIScheme
      * @param HandlerStack $handlerStack Guzzle mock handler stack
      */
     public function setMockHandlerStack(HandlerStack $handlerStack) {
-        $this->httpClient = new Client(['handler' => $handlerStack]);
+        $this->httpClient = HttpClientFactory::create(['handler' => $handlerStack]);
     }
 }

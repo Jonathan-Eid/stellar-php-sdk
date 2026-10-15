@@ -15,6 +15,7 @@ use InvalidArgumentException;
 use Soneso\StellarSDK\Crypto\StrKey;
 use Soneso\StellarSDK\Requests\RequestBuilder;
 use Soneso\StellarSDK\SEP\Toml\StellarToml;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 
 /**
@@ -86,7 +87,7 @@ class KYCService
             $this->serviceAddress = substr($this->serviceAddress, 0, -1);
         }
         if ($httpClient === null) {
-            $this->httpClient = new Client();
+            $this->httpClient = HttpClientFactory::create();
         } else {
             $this->httpClient = $httpClient;
         }
@@ -360,6 +361,6 @@ class KYCService
     }
 
     public function setMockHandlerStack(HandlerStack $handlerStack) {
-        $this->httpClient = new Client(['handler' => $handlerStack]);
+        $this->httpClient = HttpClientFactory::create(['handler' => $handlerStack]);
     }
 }

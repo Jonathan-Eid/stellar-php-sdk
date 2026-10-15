@@ -13,6 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Soneso\StellarSDK\Account;
 use Soneso\StellarSDK\Requests\RequestBuilder;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 use Soneso\StellarSDK\Soroban\Exceptions\SorobanContractParserException;
 use Soneso\StellarSDK\Soroban\Requests\GetEventsRequest;
@@ -158,7 +159,7 @@ class SorobanServer
     {
         UrlValidator::validateHttpsRequired($endpoint);
         $this->endpoint = $endpoint;
-        $this->httpClient = new Client([
+        $this->httpClient = HttpClientFactory::create([
             'base_uri' => $this->endpoint,
         ]);
         $this->headers = array_merge($this->headers, RequestBuilder::HEADERS);

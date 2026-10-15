@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use Soneso\StellarSDK\SEP\Toml\StellarToml;
 use Soneso\StellarSDK\SEP\Shared\SepRequestAmount;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 
 /**
@@ -38,7 +39,7 @@ class InteractiveService
             $this->serviceAddress = substr($this->serviceAddress, 0, -1);
         }
         if ($httpClient === null) {
-            $this->httpClient = new Client();
+            $this->httpClient = HttpClientFactory::create();
         } else {
             $this->httpClient = $httpClient;
         }
@@ -477,6 +478,6 @@ class InteractiveService
     }
 
     public function setMockHandlerStack(HandlerStack $handlerStack) {
-        $this->httpClient = new Client(['handler' => $handlerStack]);
+        $this->httpClient = HttpClientFactory::create(['handler' => $handlerStack]);
     }
 }

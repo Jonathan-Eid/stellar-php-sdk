@@ -9,6 +9,7 @@ namespace Soneso\StellarSDK;
 
 
 use GuzzleHttp\Client;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 use Soneso\StellarSDK\Constants\NetworkConstants;
 use Soneso\StellarSDK\Exceptions\AccountRequiresMemoException;
@@ -152,7 +153,7 @@ class StellarSDK
     {
         UrlValidator::validateHttpsRequired($uri);
         $this->serverUri = $uri;
-        $this->httpClient = new Client([
+        $this->httpClient = HttpClientFactory::create([
             'base_uri' => $uri,
         ]);
     }

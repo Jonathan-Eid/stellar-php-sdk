@@ -55,7 +55,7 @@ class CustomFriendBot
      */
     public function fundAccount(string $accountId, ?Client $httpClient = null): bool
     {
-        $httpClient = $httpClient ?? new Client();
+        $httpClient = $httpClient ?? HttpClientFactory::create();
         $url = $this->friendBotUrl . "?addr=" . urlencode($accountId);
         $request = new Request('GET', $url, RequestBuilder::HEADERS);
         $response = $httpClient->send($request);

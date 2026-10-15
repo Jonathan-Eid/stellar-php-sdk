@@ -12,6 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Soneso\StellarSDK\Constants\NetworkConstants;
 use Soneso\StellarSDK\Requests\RequestBuilder;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 use Yosymfony\Toml\Toml;
 
@@ -232,7 +233,7 @@ class StellarToml
         $url = "https://" . $domain . "/.well-known/stellar.toml";
         $client = $httpClient;
         if ($client === null) {
-            $client = new Client();
+            $client = HttpClientFactory::create();
         }
         try {
             $request = new Request('GET', $url, RequestBuilder::HEADERS);
@@ -261,7 +262,7 @@ class StellarToml
     public static function currencyFromUrl(string $toml, ?Client $httpClient = null) : Currency {
         UrlValidator::validateHttpsRequired($toml);
         if ($httpClient === null) {
-            $httpClient = new Client();
+            $httpClient = HttpClientFactory::create();
         }
         try {
             $request = new Request('GET', $toml, RequestBuilder::HEADERS);

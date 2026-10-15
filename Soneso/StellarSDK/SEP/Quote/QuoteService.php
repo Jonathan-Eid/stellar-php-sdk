@@ -13,6 +13,7 @@ use GuzzleHttp\RequestOptions;
 use InvalidArgumentException;
 use Soneso\StellarSDK\Requests\RequestBuilder;
 use Soneso\StellarSDK\SEP\Toml\StellarToml;
+use Soneso\StellarSDK\Util\HttpClientFactory;
 use Soneso\StellarSDK\Util\UrlValidator;
 
 /**
@@ -41,7 +42,7 @@ class QuoteService
         if ($httpClient !== null) {
             $this->httpClient = $httpClient;
         } else {
-            $this->httpClient = new Client();
+            $this->httpClient = HttpClientFactory::create();
         }
     }
 
